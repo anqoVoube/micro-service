@@ -1,0 +1,8 @@
+postgresql-options:
+  url: "postgres"
+  port: "5432"
+  user: "postgres"
+  database: "users"
+  pool: 50
+
+
