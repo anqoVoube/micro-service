@@ -44,6 +44,11 @@ type jsonUserData struct {
 	Data  Data `json:"data"`
 }
 
+type TokenResponse struct {
+	AccessToken  string `json:"access_token"`
+	RefreshToken string `json:"refresh_token"`
+}
+
 type Data struct {
 	Id        int    `json:"id"`
 	FirstName string `json:"first_name"`
@@ -71,13 +76,14 @@ func authenticate(c *gin.Context, payload AuthPayload) {
 
 	defer response.Body.Close()
 
-	var jsonDataOfUser jsonUserData
+	//var jsonDataOfUser jsonUserData
+	var tokenResponse TokenResponse
 
-	err = json.NewDecoder(response.Body).Decode(&jsonDataOfUser)
+	err = json.NewDecoder(response.Body).Decode(&tokenResponse)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, fmt.Sprintf("Line 89: %s", err.Error()))
 		return
 	}
-	c.JSON(http.StatusOK, jsonDataOfUser)
+	c.JSON(http.StatusOK, tokenResponse)
 
 }
